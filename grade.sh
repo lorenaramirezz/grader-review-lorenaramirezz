@@ -10,11 +10,24 @@ echo 'Finished cloning'
 
 set -e
 
-files='find student-submission -name "ListExamples.java"'
-for file in $files
-do
+#files= `find student-submission -name "ListExamples.java"`
+#for file in $files
+#do
 
-    if [[ -f $file ]] && [[ $file == *ListExamples* ]]
+#    if [[ -f $file ]] && [[ $file == *ListExamples* ]]
+#    then
+#       #cp $ListExamples.java $grading-area
+#        echo "File found!"
+#
+#    else
+#        echo 'Wrong file!'
+#        exit
+#    fi 
+#    done
+
+cd student-submission
+
+if [[ -f ListExamples.java ]]
     then
         #cp $ListExamples.java $grading-area
         echo "File found!"
@@ -22,9 +35,21 @@ do
     else
         echo 'Wrong file!'
         exit
-    fi 
-    done
+fi 
 
+
+cp ListExamples.java ../grading-area
+cd ..
+cp -r lib grading-area
+cp TestListExamples.java grading-area
+cd grading-area
+
+#cd /Users/newcomputer/Documents/GitHub/list-examples-grader
+#cp -r lib student-submission
+
+#cd student-submission
+javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java
+java -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar org.junit.runner.JUnitCore TestListExamples
 
 
 
